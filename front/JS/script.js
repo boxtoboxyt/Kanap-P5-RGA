@@ -1,7 +1,7 @@
 // Appel the API
 const api = "http://localhost:3000/api/products/";
 
-function affichageKanap () {
+function affichageKanaps () {
       fetch(api)
       .then(function (response) {
             if (response.ok) {
@@ -9,10 +9,9 @@ function affichageKanap () {
             }
       })
       .then(function (canapes) {
-            console.log(canapes);
+           
             canapes.forEach(canape => {
-                  console.log(canapes);
-
+                 
             const lien = document.createElement("a");
             items.appendChild(lien);
             lien.setAttribute("href", `product.html?id=${canape._id}`);
@@ -40,4 +39,4 @@ function affichageKanap () {
   alert("⚠️ Error! Fetch()!")
 });
 }
-affichageKanap();
+affichageKanaps();
