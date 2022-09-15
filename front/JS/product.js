@@ -1,8 +1,6 @@
 const recupUrl = window.location.href;
 const url = new URL(recupUrl);
 const id = url.searchParams.get("id");
-console.log(id);
-
 
 function produitKanap () {
 fetch(`http://localhost:3000/api/products/${id}`)
@@ -34,19 +32,24 @@ fetch(`http://localhost:3000/api/products/${id}`)
     couleurProduit.innerText = color;
         
     });
-
 })}
 
-
-let addButtonCart = document.getElementById("addToCart");
-
-function addProduitCarte() {
-let addButtonCart = document.getElementById("addToCart");
-addButtonCart.addEventListener("click", (event) => {
-    console.log(event.target);
-})}
-
-
-    
-addProduitCarte();
 produitKanap();
+
+const colors = document.getElementById("colors");
+const quantity = document.getElementById("quantity");
+const addPanier = document.getElementById("addToCart");
+const local = JSON.parse(localStorage.getItem("dataPanier"));
+
+function addToCart() {
+addPanier.addEventListener('click', (event) => {
+    const dataPanier = {
+        id: produitKanap._id,
+        quantite : quantity.value,
+        couleurs : colors.value
+ }
+    
+});
+};
+
+console.log(addToCart)
