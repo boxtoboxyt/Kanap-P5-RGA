@@ -36,20 +36,20 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
 produitKanap();
 
-const colors = document.getElementById("colors");
+const addCart = document.getElementById("addToCart");
 const quantity = document.getElementById("quantity");
-const addPanier = document.getElementById("addToCart");
-const local = JSON.parse(localStorage.getItem("dataPanier"));
+const colors = document.getElementById("colors");
 
-function addToCart() {
-addPanier.addEventListener('click', (event) => {
-    const dataPanier = {
-        id: produitKanap._id,
-        quantite : quantity.value,
-        couleurs : colors.value
- }
-    
-});
-};
+const panier = [id, quantity, colors];
 
-console.log(addToCart)
+function pushKanap () {
+addCart.addEventListener("click", function(event) {
+    let localStorageKanap = localStorage.getItem("products");
+    let kanapJson = JSON.parse(localStorageKanap);
+    let cartKanap = {
+        id: kanapJson.productId,
+        choixQuantite: quantity.value,
+        choixCouleur: colors.value
+    }
+
+})};
