@@ -40,6 +40,7 @@ const addToCart = document.getElementById("addToCart");
 const quantity = document.getElementById("quantity");
 const colors = document.getElementById("colors");
 
+
 addToCart.addEventListener("click", function (){
 
     let kanapDetails = {
@@ -51,8 +52,7 @@ addToCart.addEventListener("click", function (){
     let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
      //Si le panier comporte déjà au moins 1 article
     if (kanapInfos) {
-        const resultFind = kanapInfos.find(
-            (el) => el.Id === id && el.Color === colors.value);
+        const resultFind = kanapInfos.find((element) => element.Id === id && element.Color === colors.value);
             //Si le produit commandé est déjà dans le panier
             if (resultFind) {
                 let newQuantite =
