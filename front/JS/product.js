@@ -26,7 +26,6 @@ fetch(`http://localhost:3000/api/products/${id}`)
     descriptionProduit.innerText = infosKanap.description;
 
     for (let color of infosKanap.colors) {
-
         const option = document.createElement("option");
         option.value = color;
         option.textContent = color;

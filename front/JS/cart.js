@@ -67,7 +67,7 @@ if (kanapInfos) {
             itemDelete.classList.add("cart__item__content__settings__delete");
 
             let deleteAccept = document.createElement("p");
-            deleteAccept.classList.add("itemDelete");
+            deleteAccept.classList.add("deleteItem");
             deleteAccept.innerHTML = ('Supprimer');
 
             section.appendChild(article);
@@ -303,9 +303,6 @@ btn_commander.addEventListener("click", (ev) => {
         })
         .then(function(data) {
             console.log(data);
-            //localStorage.clear();
-            //localStorage.setItem("orderId", data.orderId);
-
             window.location.href = 'confirmation.html?orderId=' + data.orderId;
         })
 })
