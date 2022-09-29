@@ -25,13 +25,13 @@ fetch(`http://localhost:3000/api/products/${id}`)
     const descriptionProduit = document.getElementById("description");
     descriptionProduit.innerText = infosKanap.description;
 
-    infosKanap.colors.forEach(color => {
-    const couleurProduit = document.createElement("option");
-    document.getElementById("colors").appendChild(couleurProduit);
-    couleurProduit.setAttribute("value", infosKanap.colors);
-    couleurProduit.innerText = color;
-        
-    });
+    for (let color of infosKanap.colors) {
+
+        const option = document.createElement("option");
+        option.value = color;
+        option.textContent = color;
+        document.getElementById("colors").append(option);
+    };
 })}
 
 produitKanap();
@@ -42,7 +42,7 @@ const colors = document.getElementById("colors");
 
 
 addToCart.addEventListener("click", function (){
-
+alert("votre commande vous attends dans le Panier!");
     let kanapDetails = {
         Id: id,
         Color: colors.value,
