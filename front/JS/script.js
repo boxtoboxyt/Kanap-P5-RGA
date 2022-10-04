@@ -36,7 +36,7 @@ function affichageKanaps () {
 
 })
 .catch(function (error) {
-  alert("⚠️ Error! Fetch()!")
+  alert("Erreur Produit")
 });
 }
 affichageKanaps();

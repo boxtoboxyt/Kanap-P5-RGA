@@ -40,8 +40,8 @@ const quantity = document.getElementById("quantity");
 const colors = document.getElementById("colors");
 
 
-addToCart.addEventListener("click", function (){
-alert("votre commande vous attends dans le Panier!");
+addToCart.addEventListener("click", function (e){
+
     let kanapDetails = {
         Id: id,
         Color: colors.value,
@@ -69,6 +69,19 @@ alert("votre commande vous attends dans le Panier!");
             kanapInfos.push(kanapDetails);
             localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
     }
-})
+
+    let validator = true
+  if (colors.value == 0){
+    alert("Merci de choisir votre couleur");
+    validator = false;
+  }
+  if (quantity.value == 0){
+    alert("Merci de choisir la quantité d'article souhaité");
+    validator = false;
+  }
+  if (quantity.value > 100){
+    alert("Merci de choisir une quantité comprise entre 1 et 100");
+    validator = false;
+}})
 
 

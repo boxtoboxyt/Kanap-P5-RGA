@@ -258,9 +258,10 @@ regexFormulaire.email.addEventListener("input", function() {
 const btn_commander = document.getElementById("order");
 
 //Ecouter le panier
-btn_commander.addEventListener("click", (ev) => {
+btn_commander.addEventListener("submit", (ev) => {
+    if(messagePrenomError == true) {
     ev.preventDefault();
-
+    }
     //Construction d'un array depuis le local storage
     let idProduits = [];
     for (Kanap of kanapInfos) {
@@ -284,7 +285,6 @@ btn_commander.addEventListener("click", (ev) => {
         },
         products: idProduits,
     };
-    console.log(order);
 
     const options = {
         method: 'POST',
@@ -302,7 +302,6 @@ btn_commander.addEventListener("click", (ev) => {
             }
         })
         .then(function(data) {
-            console.log(data);
             window.location.href = 'confirmation.html?orderId=' + data.orderId;
         })
 })
