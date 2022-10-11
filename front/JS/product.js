@@ -2,6 +2,7 @@ const recupUrl = window.location.href;
 const url = new URL(recupUrl);
 const id = url.searchParams.get("id");
 
+// Appel de l'API en fonction de l'ID
 function produitKanap () {
 fetch(`http://localhost:3000/api/products/${id}`)
 .then(function (response) {
@@ -9,6 +10,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
           return response.json();
     }
 })
+// Réponse, function DOM ajout de l'ensemble des éléments visuelles
 .then(function (infosKanap) {
 
     const imageProduit = document.createElement("img");
@@ -25,6 +27,7 @@ fetch(`http://localhost:3000/api/products/${id}`)
     const descriptionProduit = document.getElementById("description");
     descriptionProduit.innerText = infosKanap.description;
 
+// Boucle For pour appliquer la méthode sur chaque couleur
     for (let color of infosKanap.colors) {
         const option = document.createElement("option");
         option.value = color;
@@ -35,53 +38,65 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
 produitKanap();
 
-const addToCart = document.getElementById("addToCart");
-const quantity = document.getElementById("quantity");
-const colors = document.getElementById("colors");
+// LOCAL STORAGE ET GESTION DU PANIER //
+
+//--------------------------------gestion du panier ------------------------
+//selection btn ajout produit
+const addBtn = document.querySelector("#addToCart")
 
 
-addToCart.addEventListener("click", function (e){
+//ecoute btn envoi panier
+addBtn.addEventListener("click", (e)=>{
 
-    let kanapDetails = {
-        Id: id,
-        Color: colors.value,
-        Quantity: quantity.value
-    }
+const couleur = document.querySelector("#colors").value;
+const quantité = document.querySelector("#quantity").value;
 
-    let kanapInfos = JSON.parse(localStorage.getItem("Kanap"));
-     //Si le panier comporte déjà au moins 1 article
-    if (kanapInfos) {
-        const resultFind = kanapInfos.find((element) => element.Id === id && element.Color === colors.value);
-            //Si le produit commandé est déjà dans le panier
-            if (resultFind) {
-                let newQuantite =
-                parseInt(kanapDetails.Quantity) + parseInt(resultFind.Quantity);
-                resultFind.Quantity = newQuantite;
-                localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
-            //Si le produit commandé n'est pas dans le panier
-            } else {
-                kanapInfos.push(kanapDetails);
-                localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
-            }
-        //Si le panier est vide
-        } else {
-            kanapInfos =[];
-            kanapInfos.push(kanapDetails);
-            localStorage.setItem("Kanap", JSON.stringify(kanapInfos));
-    }
+if (quantité > 0 && quantité <=100 && couleur != "--SVP, choisissez une couleur --") {
 
-    let validator = true
-  if (colors.value == 0){
-    alert("Merci de choisir votre couleur");
-    validator = false;
+  let kanapDetails = {
+    colors: couleur,
+    id: id,
+    quantity: Number(quantité)
   }
-  if (quantity.value == 0){
-    alert("Merci de choisir la quantité d'article souhaité");
-    validator = false;
+
+
+  //---------------------------local storage-------------------------------------------------------------
+  
+  function saveBasket(basket) {
+    localStorage.setItem("kanapProduit",JSON.stringify(basket));
   }
-  if (quantity.value > 100){
-    alert("Merci de choisir une quantité comprise entre 1 et 100");
-    validator = false;
-}})
+  
+  function getBasket() {
+    let basket = localStorage.getItem("kanapProduit");
+    if (basket == null){
+      return [];
+    }else {
+      return JSON.parse(basket);
+    }
+  }
+  
+  //ajout au panier
+  function addBasket(kanapDetails) {
+    //si le produit est déja ajouté au panier
+    let basket = getBasket();
+    let foundProduct = basket.find(p => p.id === id && p.colors === couleur)
+    if (foundProduct != undefined) {
+      let newQuantity = parseInt(kanapDetails.quantity) + parseInt(foundProduct.quantity);
+      foundProduct.quantity = newQuantity;
+    }else {
+      basket.push(kanapDetails);
+    }
+  
+    saveBasket(basket);
+  }
 
 
+
+  
+  addBasket(kanapDetails);
+  
+  return alert("Votre produit a bien été ajouté au panier")
+}else{
+  return alert ("Pour ajouter au panier: \n-Sélectionner une couleur\n-sélectionner une quantité entre 1 et 100") 
+}
+});
