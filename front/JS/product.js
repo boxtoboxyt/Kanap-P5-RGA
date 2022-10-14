@@ -15,8 +15,8 @@ fetch(`http://localhost:3000/api/products/${id}`)
 
     const imageProduit = document.createElement("img");
     document.querySelector(".item__img").appendChild(imageProduit);
-    imageProduit.setAttribute('src', infosKanap.imageUrl);
-    imageProduit.setAttribute('alt', infosKanap.altTxt);
+    imageProduit.setAttribute("src", infosKanap.imageUrl);
+    imageProduit.setAttribute("alt", infosKanap.altTxt);
 
     const titreProduit = document.getElementById("title");
     titreProduit.innerText = infosKanap.name;
@@ -56,7 +56,7 @@ if (quantité > 0 && quantité <=100 && couleur != "--SVP, choisissez une couleu
   let kanapDetails = {
     colors: couleur,
     id: id,
-    quantity: Number(quantité)
+    quantity: quantité
   }
 
 
@@ -90,13 +90,11 @@ if (quantité > 0 && quantité <=100 && couleur != "--SVP, choisissez une couleu
     saveBasket(basket);
   }
 
-
-
-  
   addBasket(kanapDetails);
   
-  return alert("Votre produit a bien été ajouté au panier")
-}else{
+  if (confirm("Votre produit a bien été ajouté au panier! Voulez-vous voir votre panier?")) { 
+  window.location.href = "cart.html"
+}}else{
   return alert ("Pour ajouter au panier: \n-Sélectionner une couleur\n-sélectionner une quantité entre 1 et 100") 
 }
 });
