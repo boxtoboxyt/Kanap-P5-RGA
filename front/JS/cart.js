@@ -182,12 +182,13 @@ for (i = 0; i < cart.length; i++) {
             item.quantityProduct = 1; 
             localStorage.setItem("cart", JSON.stringify(cart))
           }
-
-          // Mise à jour du prix de chaque produit invidiuel à chaque fois qu'on change la quantité grâce à l'input qui lui est attribué
-          newPrice.innerText = item.priceProduct * item.quantityProduct + `${" €"}`;
-          
+ 
           // Boucle à travers le panier pour avoir le prix et la quantité gloabaux des articles
           for(item of cart) {
+             // Mise à jour du prix de chaque produit invidiuel à chaque fois qu'on change la quantité grâce à l'input qui lui est attribué
+            newPrice.innerText = item.priceProduct * item.quantityProduct + `${" €"}`;
+
+            // calcule total
             allTotalArticles += JSON.parse(item.quantityProduct); 
             FinalPrices = JSON.parse(item.quantityProduct) * JSON.parse(item.priceProduct); 
             allTotalPrice += FinalPrices;
@@ -339,4 +340,3 @@ formulaire.addEventListener("submit", function sendFormulaire (e) {
     });
 });
 // Appel à la fonction pour qu'elle s'exécute
-sendFormulaire(); 
