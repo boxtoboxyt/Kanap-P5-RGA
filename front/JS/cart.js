@@ -339,4 +339,4 @@ formulaire.addEventListener("submit", function sendFormulaire (e) {
       }
     });
 });
-// Appel à la fonction pour qu'elle s'exécute
+
