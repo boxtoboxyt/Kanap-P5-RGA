@@ -329,7 +329,7 @@ formulaire.addEventListener("submit", function sendFormulaire (e) {
   fetch("http://localhost:3000/api/products/order", options)
     .then((res) => res.json())
     .then((data) => {
-      if (!cart.length <= 0) {
+      if (cart.length >= 0) {
         window.location.href = `/front/html/confirmation.html?orderId=${data.orderId}`;
       } else {
         alert(
